@@ -1,30 +1,23 @@
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+
+import cart from './modules/cart'
+import user from './modules/user'
+import category from './modules/category'
 
 export default createStore({
-
+  modules: {
+    cart,
+    user,
+    category
+  },
+  // 配置插件
+  plugins: [
+    createPersistedState({
+      // 本地存储名字
+      key: 'erabbit-client-pc-store',
+      // 指定需要存储的模块
+      paths: ['user', 'cart']
+    })
+  ]
 })
-
-// export default createStore({
-//   state: {
-//     username: 'zs'
-//   },
-//   getters: {
-//     newName (state) {
-//       return state.username + '!!!'
-//     }
-//   },
-//   mutations: {
-//     updateName (state) {
-//       state.username = 'ls'
-//     }
-//   },
-//   actions: {
-//     updateName (ctx) {
-//       setTimeout(() => {
-//         ctx.commit('updateName')
-//       }, 1000)
-//     }
-//   },
-//   modules: {
-//   }
-// })
