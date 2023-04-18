@@ -1,5 +1,5 @@
 <template>
-  <div>HomePage111</div>
+  <div class="container">HomePage</div>
 </template>
 
 <script>
@@ -9,4 +9,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+.container {
+  .hoverShadow();
+}
 </style>
