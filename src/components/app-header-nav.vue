@@ -86,6 +86,7 @@ export default {
     opacity: 0;
     box-shadow: 0 0 5px #ccc;
     transition: all .2s .1s;
+    z-index: 999;
 
     ul {
         display: flex;
