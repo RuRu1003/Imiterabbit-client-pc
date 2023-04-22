@@ -43,6 +43,9 @@ export default {
         margin-left: 5px;
         margin-right: 5px;
         line-height: 22px;
+        &:last-child {
+          display: none;
+        }
     }
 }
 </style>
