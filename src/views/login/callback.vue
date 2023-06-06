@@ -57,8 +57,10 @@ export default {
           // 登录成功：data.result 用户信息
           const { id, account, avatar, mobile, nickname, token } = data.result
           store.commit('user/setUser', { id, account, avatar, mobile, nickname, token })
-          router.push(store.state.user.redirectUrl)
-          Message({ type: 'success', text: 'QQ登录成功' })
+          store.dispatch('cart/mergeCart').then(() => {
+            router.push(store.state.user.redirectUrl)
+            Message({ type: 'success', text: '登录成功' })
+          })
         }).catch(e => {
           // 登录失败：没有绑定
           isBind.value = false

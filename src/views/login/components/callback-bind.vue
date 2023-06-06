@@ -110,8 +110,10 @@ export default {
         }).then(data => {
           const { id, account, avatar, mobile, nickname, token } = data.result
           store.commit('user/setUser', { id, account, avatar, mobile, nickname, token })
-          router.push(store.state.user.redirectUrl)
-          Message({ type: 'success', text: 'QQ绑定成功' })
+          store.dispatch('cart/mergeCart').then(() => {
+            router.push(store.state.user.redirectUrl)
+            Message({ type: 'success', text: 'QQ绑定成功' })
+          })
         }).catch(e => {
           Message({ type: 'error', text: '绑定失败' })
         })
