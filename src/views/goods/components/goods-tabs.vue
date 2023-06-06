@@ -6,7 +6,6 @@
         </nav>
         <GoodsDetial v-if="activeName === 'GoodsDetial'" />
         <GoodsComment v-if="activeName === 'GoodsComment'" />
-        <!-- <components :is="activeName"></components> -->
     </div>
 </template>
 <script>

@@ -1,4 +1,4 @@
-// 小兔鲜常量数据
+// 网站常量数据
 
 // 默认9个顶级分类
 export const topCategory = [

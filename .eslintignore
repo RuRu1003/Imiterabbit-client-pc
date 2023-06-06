@@ -1,2 +1,6 @@
 /dist
 /src/vender
+
+
+# 忽略文件
+src/utils/vee-validate-schema.js

@@ -2,9 +2,6 @@ const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 
 module.exports = defineConfig({
-  transpileDependencies: true,
-  lintOnSave: false,
-
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
@@ -15,12 +12,30 @@ module.exports = defineConfig({
         path.join(__dirname, './src/assets/styles/mixins.less')
       ]
     }
+  },
+  configureWebpack: {
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /\.(png|svg|jpg|jpeg|gif)$/,
+    //       type: 'javascript/auto',
+    //       use: [
+    //         {
+    //           loader: 'url-loader',
+    //           options: {
+    //             limit: 10000
+    //           }
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // }
+    devServer: {
+      historyApiFallback: true,
+      allowedHosts: 'all'
+    },
+    externals: {
+      qc: 'QC'
+    }
   }
-  // chainWebpack: config => {
-  //   config.module
-  //     .rule('images')
-  //     .use('url-loader')
-  //     .loader('url-loader')
-  //     .tap(options => Object.assign(options, { limit: 10000 }))
-  // }
 })
