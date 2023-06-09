@@ -159,11 +159,6 @@ const useGoods = () => {
     }
 }
 
-// .goods-tabs {
-//     min-height: 800px;
-//     background: #fff;
-// }
-
 .goods-warn {
     min-height: 600px;
     background: #fff;

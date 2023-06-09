@@ -1,16 +1,17 @@
 <template>
-    <Form ref="formCom" :validation-schema="mySchema" v-slot="{errors}" class="xtx-form" autocomplete="off">
+    <Form ref="formCom" :validation-schema="mySchema" v-slot="{ errors }" class="xtx-form" autocomplete="off">
         <div class="xtx-form-item">
             <div class="field">
                 <i class="icon iconfont icon-user"></i>
-                <Field :class="{err:errors.account}" v-model="form.account" name="account" class="input" type="text" placeholder="请输入用户名" />
+                <Field :class="{ err: errors.account }" v-model="form.account" name="account" class="input" type="text"
+                    placeholder="请输入用户名" />
             </div>
             <div v-if="errors.account" class="error">{{ errors.account }}</div>
         </div>
         <div class="xtx-form-item">
             <div class="field">
                 <i class="icon iconfont icon-phone"></i>
-                <Field :class="{err:errors.mobile}" v-model="form.mobile" name="mobile" class="input" type="text" placeholder="请输入手机号" />
+                <Field v-model="form.mobile" name="mobile" class="input" type="text" placeholder="请输入手机号" />
             </div>
             <div v-if="errors.mobile" class="error">{{ errors.mobile }}</div>
         </div>
@@ -19,7 +20,7 @@
                 <i class="icon iconfont icon-code"></i>
                 <Field v-model="form.code" name="code" class="input" type="text" placeholder="请输入验证码" />
                 <span @click="send()" class="code">
-                    {{ time===0||-1?'发送验证码':`${time}秒后发送` }}
+                    {{ time === 0 || time === -1 ? '发送验证码' : `${time}秒后发送` }}
                 </span>
             </div>
             <div v-if="errors.code" class="error">{{ errors.code }}</div>
@@ -27,19 +28,19 @@
         <div class="xtx-form-item">
             <div class="field">
                 <i class="icon iconfont icon-lock"></i>
-                <Field :class="{err:errors.password}" v-model="form.password" name="password" class="input" type="password" placeholder="请输入密码" />
+                <Field v-model="form.password" name="password" class="input" type="password" placeholder="请输入密码" />
             </div>
             <div v-if="errors.password" class="error">{{ errors.password }}</div>
         </div>
         <div class="xtx-form-item">
             <div class="field">
                 <i class="icon iconfont icon-lock"></i>
-                <Field :class="{err:errors.rePassword}" v-model="form.rePassword" name="rePassword" class="input" type="password" placeholder="请确认密码" />
+                <Field v-model="form.repassword" name="rePassword" class="input" type="password" placeholder="请确认密码" />
             </div>
             <div v-if="errors.rePassword" class="error">{{ errors.rePassword }}</div>
         </div>
         <a @click="submit()" href="javascript:;" class="submit">立即提交</a>
-    </Form>
+    </Form>>
 </template>
 
 <script>
@@ -78,12 +79,10 @@ export default {
       rePassword: schema.rePassword
     }
 
-    // ----------------
     const formCom = ref(null)
     const time = ref(0)
     const { pause, resume } = useIntervalFn(() => {
       time.value--
-      console.log('time', time.value)
       if (time.value <= 0) {
         pause()
       }
@@ -93,23 +92,29 @@ export default {
     })
     // 发送短信
     const send = async () => {
-      const valid = mySchema.mobile(form.mobile)
-      if (valid === true) {
-        // 通过
-        if (time.value === 0) {
-        // 没有倒计时才可以发送
-          await userQQPatchCode(form.mobile)
-          Message({ type: 'success', text: '发送成功' })
-          time.value = 60
-          resume()
+      try {
+        const valid = mySchema.mobile(form.mobile)
+        if (valid === true) {
+          // 通过
+          if (time.value === 0 || time.value === -1) {
+            await userQQPatchCode(form.mobile)
+            Message({ type: 'success', text: '发送成功' })
+            time.value = 60
+            resume()
+          }
+        } else {
+          // 失败
+          formCom.value.setFieldError('mobile', valid)
         }
-      } else {
-        // 失败，使用vee的错误函数显示错误信息
-        formCom.value.setFieldError('mobile', valid)
+      } catch (e) {
+        // 失败提示
+        if (e.response.data) {
+          Message({ type: 'error', text: e.response.data.message || '登录失败' })
+        }
       }
     }
 
-    // -----------------------
+    // -----------------------------
     // 完善信息
     const store = useStore()
     const router = useRouter()
@@ -120,14 +125,17 @@ export default {
           unionId: props.unionId,
           ...form
         }).then(data => {
+        // 存储用户信息
           const { id, account, avatar, mobile, nickname, token } = data.result
           store.commit('user/setUser', { id, account, avatar, mobile, nickname, token })
           store.dispatch('cart/mergeCart').then(() => {
+            // 进行跳转
             router.push(store.state.user.redirectUrl)
+            // 成功消息提示
             Message({ type: 'success', text: 'QQ完善信息成功' })
           })
         }).catch(e => {
-          Message({ type: 'error', text: '完善信息失败' })
+          Message({ type: 'success', text: '完善信息失败' })
         })
       }
     }

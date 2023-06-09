@@ -1,4 +1,4 @@
-import { findCart, getNewCartGoods, mergeCart } from '@/api/cart'
+import { getNewCartGoods, mergeCart, findCart, insertCart, deleteCart, updateCart, checkAllCart } from '@/api/cart'
 
 // 购物车模块
 export default {
@@ -93,8 +93,8 @@ export default {
         if (ctx.rootState.user.profile.token) {
           // 已登录
           const oldGoods = ctx.state.list.find(item => item.skuId === oldSkuId)
-          this.deleteCart([oldGoods.skuId]).then(() => {
-            return this.insertCart({ skuId: newSku.skuId, count: oldGoods.count })
+          deleteCart([oldGoods.skuId]).then(() => {
+            return insertCart({ skuId: newSku.skuId, count: oldGoods.count })
           }).then(() => {
             return findCart()
           }).then(data => {
@@ -118,7 +118,7 @@ export default {
         if (ctx.rootState.user.profile.token) {
           // 已登录
           const ids = ctx.getters[isClear ? 'invalidList' : 'selectedList'].map(item => item.skuId)
-          this.deleteCart(ids).then(() => {
+          deleteCart(ids).then(() => {
             return findCart()
           }).then(data => {
             ctx.commit('setCart', data.result)
@@ -139,7 +139,7 @@ export default {
         if (ctx.rootState.user.profile.token) {
           // 已登录
           const ids = ctx.getters.validList.map(item => item.skuId)
-          this.checkAllCart({ selected, ids }).then(() => {
+          checkAllCart({ selected, ids }).then(() => {
             return findCart()
           }).then(data => {
             ctx.commit('setCart', data.result)
@@ -154,12 +154,12 @@ export default {
         }
       })
     },
-    // 修改购物车
+    // 修改购物车（选中状态，数量）
     updateCart (ctx, payload) {
       return new Promise((resolve, reject) => {
         if (ctx.rootState.user.profile.token) {
           // 已登录
-          this.updateCart(payload).then(() => {
+          updateCart(payload).then(() => {
             return findCart()
           }).then(data => {
             ctx.commit('setCart', data.result)
@@ -177,7 +177,7 @@ export default {
       return new Promise((resolve, reject) => {
         if (ctx.rootState.user.profile.token) {
           // 已登录
-          this.deleteCart([payload]).then(() => {
+          deleteCart([payload]).then(() => {
             return findCart()
           }).then(data => {
             ctx.commit('setCart', data.result)
@@ -190,11 +190,12 @@ export default {
         }
       })
     },
+    // 加入购物车
     insertCart (ctx, payload) {
       return new Promise((resolve, reject) => {
         if (ctx.rootState.user.profile.token) {
           // 已登录
-          this.insertCart({ skuId: payload.skuId, count: payload.count }).then(() => {
+          insertCart({ skuId: payload.skuId, count: payload.count }).then(() => {
             return findCart()
           }).then(data => {
             ctx.commit('setCart', data.result)
@@ -206,31 +207,29 @@ export default {
           resolve()
         }
       })
-    }
-  },
-  // 获取商品列表
-  findCart (ctx) {
-    return new Promise((resolve, reject) => {
-      if (ctx.rootState.user.profile.token) {
-        // 已登录
-        this.findCart().then(data => {
-          ctx.commit('setCart', data.result)
-          resolve()
-        })
-      } else {
-        // 未登录
-        const promiseArr = ctx.state.list.map(goods => {
-          return getNewCartGoods(goods.skuId)
-        })
-        Promise.all(promiseArr).then(dataList => {
-          dataList.forEach((data, i) => {
-            ctx.commit('updateCart', { skuId: ctx.state.list[i].skuId, ...data.result })
+    },
+    // 获取商品列表
+    findCart (ctx) {
+      return new Promise((resolve, reject) => {
+        if (ctx.rootState.user.profile.token) {
+          // 已登录
+          findCart().then(data => {
+            ctx.commit('setCart', data.result)
+            resolve()
           })
-          resolve()
-        }).catch(e => {
-          reject(e)
-        })
-      }
-    })
+        } else {
+          // 未登录
+          const promiseArr = ctx.state.list.map(goods => {
+            return getNewCartGoods(goods.skuId)
+          })
+          Promise.all(promiseArr).then(dataList => {
+            dataList.forEach((data, i) => {
+              ctx.commit('updateCart', { skuId: ctx.state.list[i].skuId, ...data.result })
+            })
+            resolve()
+          })
+        }
+      })
+    }
   }
 }

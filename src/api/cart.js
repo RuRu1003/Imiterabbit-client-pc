@@ -1,4 +1,4 @@
-// 封装购物车相关的API函数
+// 购物车相关
 import request from '@/utils/request'
 
 /**
@@ -39,9 +39,9 @@ export const findCart = () => {
 /**
  * 加入购物车
  * @param {String} skuId - SKUID
- * @param {String} count - 加入购物车数量
+ * @param {Integer} count - 加入购物车数量
  * @returns
- */
+*/
 export const insertCart = ({ skuId, count }) => {
   return request('/member/cart', 'post', { skuId, count })
 }
@@ -55,7 +55,7 @@ export const deleteCart = (ids) => {
 }
 
 /**
- * 修改购物车商品（状态，数量）
+ * 修改购物车商品(状态，数量)
  * @param {String} skuId - SKUID
  * @param {Integer} count - 加入购物车数量
  * @param {Boolean} selected - 选中状态
@@ -66,7 +66,7 @@ export const updateCart = ({ skuId, selected, count }) => {
 }
 
 /**
- * 全部选中&取消全选
+ * 全部选中&取消选中
  * @param {Boolean} selected - 选中状态
  * @param {Array<string>} ids - skuId 的集合
  */

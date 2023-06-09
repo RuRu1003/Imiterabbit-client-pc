@@ -44,15 +44,17 @@
                             </td>
                             <td class="tc">
                                 <p>&yen;{{goods.nowPrice}}</p>
-                                <p v-if="goods.price-goods.nowPrice>0">
-                                    比加入时降价 <span class="red">&yen;{{goods.price-goods.nowPrice}}</span>
+                                <p v-if="goods.price-goods.nowPrice">
+                                    比加入时降价 <span class="red">&yen;{{ goods.price-goods.nowPrice }}</span>
                                 </p>
                             </td>
                             <td class="tc">
-                                <XtxNumbox @change="updateCount(goods.skuId, $event)" max="goods.stock" :modelValue="goods.count" />
+                                <XtxNumbox @change="updateCount(goods.skuId, $event)" :max="goods.stock" :modelValue="goods.count" />
                             </td>
                             <td class="tc">
-                                <p class="f16 red">&yen;{{Math.round(goods.nowPrice*100)*goods.count/100}}</p>
+                                <p class="f16 red">&yen;
+                                    {{Math.round(goods.nowPrice*100)*goods.count/100}}
+                                </p>
                             </td>
                             <td class="tc">
                                 <p><a href="javascript:;">移入收藏夹</a></p>
@@ -68,7 +70,7 @@
                                 <h3 class="tit">失效商品</h3>
                             </td>
                         </tr>
-                        <tr v-for="goods in $store.getters['cart/invalidList']" :key="goods.skuId">
+                        <tr v-for="goods in $store.getters['cart/validList']" :key="goods.skuId">
                             <td>
                                 <XtxCheckbox style="color:#eee;" />
                             </td>
@@ -79,13 +81,13 @@
                                     </RouterLink>
                                     <div>
                                         <p class="name ellipsis">{{ goods.name }}</p>
-                                        <p class="attr">{{ goods.attrsText }}</p>
+                                        <p class="attr">{{goods.attrsText}}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="tc"><p>&yen;{{goods.nowPrice}}</p></td>
-                            <td class="tc">{{goods.count}}</td>
-                            <td class="tc"><p>&yen;{{ Math.round(goods.nowPrice*100)*goods.count/100 }}</p></td>
+                            <td class="tc"><p>&yen;{{ goods.nowPrice }}</p></td>
+                            <td class="tc">{{ goods.count }}</td>
+                            <td class="tc"><p>&yen;{{Math.round(goods.nowPrice*100)*goods.count/100}}</p></td>
                             <td class="tc">
                                 <p><a @click="deleteCart(goods.skuId)" class="green" href="javascript:;">删除</a></p>
                                 <p><a href="javascript:;">找相似</a></p>
@@ -103,7 +105,7 @@
                     <a @click="batchDeleteCart(true)" href="javascript:;">清空失效商品</a>
                 </div>
                 <div class="total">
-                    共 {{$store.getters['cart/validTotal']}} 件商品，已选择 {{$store.getters['cart/selectedTotal']}} 件，商品合计：
+                    共 {{ $store.getters['cart/validTotal'] }} 件商品，已选择 {{ $store.getters['cart/selectedTotal'] }} 件，商品合计：
                     <span class="red">¥{{$store.getters['cart/selectedAmount']}}</span>
                     <XtxButton type="primary">下单结算</XtxButton>
                 </div>
@@ -114,12 +116,12 @@
     </div>
 </template>
 <script>
+import Message from '@/components/library/Message'
 import GoodRelevant from '@/views/goods/components/goods-relevant'
-import CartNone from './components/cart-none.vue'
-import CartSku from './components/cart-sku.vue'
+import CartNone from '@/views/cart/components/cart-none.vue'
+import CartSku from '@/views/cart/components/cart-sku.vue'
 import { useStore } from 'vuex'
 import Confirm from '@/components/library/Confirm'
-import Message from '@/components/library/Message'
 export default {
   name: 'XtxCartPage',
   components: { GoodRelevant, CartNone, CartSku },
@@ -143,7 +145,7 @@ export default {
     }
     // 批量删除选中商品
     const batchDeleteCart = (isClear) => {
-      Confirm({ text: `是否删除${isClear ? '失效' : '选中'}的商品` }).then(() => {
+      Confirm({ text: `是否确认删除${isClear ? '失效' : '选中'}的商品` }).then(() => {
         store.dispatch('cart/batchDeleteCart', isClear)
       }).catch(e => {})
     }

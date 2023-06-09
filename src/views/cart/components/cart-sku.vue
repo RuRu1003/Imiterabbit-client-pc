@@ -1,7 +1,7 @@
 <template>
     <div class="cart-sku" ref="target">
         <div class="attrs" @click="toggle()">
-            <span class="ellipsis">{{ attrsText }}</span>
+            <span class="ellipsis">{{attrsText}}</span>
             <i class="iconfont icon-angle-down"></i>
         </div>
         <div class="layer" v-if="visible">
@@ -56,7 +56,6 @@ export default {
       close()
     })
 
-    // 监听sku改变的函数，记录sku信息
     const currSku = ref(null)
     const changeSku = (sku) => {
       currSku.value = sku

@@ -25,7 +25,6 @@ export default {
     // 定义指令
     defineDirective(app)
 
-    // 定义一个原型函数
     app.config.globalProperties.$message = Message
     app.config.globalProperties.$confirm = Confirm
   }

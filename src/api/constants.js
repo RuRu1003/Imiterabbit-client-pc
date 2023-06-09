@@ -1,4 +1,4 @@
-// 网站常量数据
+// 电商平台常量数据
 
 // 默认9个顶级分类
 export const topCategory = [

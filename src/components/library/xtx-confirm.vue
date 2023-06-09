@@ -2,12 +2,12 @@
     <div class="xtx-confirm" :class="{fade}">
         <div class="wrapper" :class="{fade}">
             <div class="header">
-                <h3>{{title}}</h3>
+                <h3>{{ title }}</h3>
                 <a @click="cancel" href="JavaScript:;" class="iconfont icon-close-new"></a>
             </div>
             <div class="body">
                 <i class="iconfont icon-warning"></i>
-                <span>{{text}}</span>
+                <span>{{ text }}</span>
             </div>
             <div class="footer">
                 <XtxButton @click="cancel" size="mini" type="gray">取消</XtxButton>
@@ -55,6 +55,7 @@ export default {
     const submit = () => {
       props.submitCallback()
     }
+
     return { cancel, submit, fade }
   }
 }
@@ -70,7 +71,7 @@ export default {
     background: rgba(0, 0, 0, 0);
     &.fade {
         transition: all 0.4s;
-        background: rgba(0,0,0,.5);
+        background: rgba(0, 0, 0, .5)
     }
 
     .wrapper {
@@ -84,7 +85,7 @@ export default {
         opacity: 0;
         &.fade {
             transition: all 0.4s;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             opacity: 1;
         }
 

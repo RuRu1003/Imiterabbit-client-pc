@@ -1,7 +1,6 @@
-import { createVNode, render } from 'vue-demi'
+import { createVNode, render } from 'vue'
 import XtxConfirm from './xtx-confirm.vue'
 
-// 准备一个DOM
 const div = document.createElement('div')
 div.setAttribute('class', 'xtx-confirm-container')
 document.body.appendChild(div)

@@ -1,4 +1,4 @@
-// 用户相关的接口
+// 用户相关接口
 
 import request from '@/utils/request'
 
@@ -13,7 +13,7 @@ export const userAccountLogin = ({ account, password }) => {
 }
 
 /**
- * 手机号短信验证码
+ * 获取手机号的短信验证码
  * @param {String} mobile - 手机号
  * @returns promise
  */
@@ -24,7 +24,7 @@ export const userMobileLoginMsg = (mobile) => {
 /**
  * 手机号登录
  * @param {String} mobile - 手机号
- * @param {String} code - 短信验证码，默认123456
+ * @param {String} code - 短信验证码
  * @returns promise
  */
 export const userMobileLogin = ({ mobile, code }) => {
@@ -52,7 +52,7 @@ export const userQQBindCode = (mobile) => {
 
 /**
  * QQ登录-绑定账号
- * @param {String} unionId - QQ唯一标识， openId
+ * @param {String} unionId - QQ唯一标识, openId
  * @param {String} mobile - 手机号
  * @param {String} code - 验证码
  * @returns
@@ -81,7 +81,7 @@ export const userQQPatchCode = (mobile) => {
 
 /**
  * QQ登录-完善信息
- * @param {String} unionId - QQ唯一标识， openId
+ * @param {String} unionId - QQ唯一标识，openId
  * @param {String} mobile - 手机号
  * @param {String} code - 验证码
  * @param {String} account - 账号
@@ -89,5 +89,5 @@ export const userQQPatchCode = (mobile) => {
  * @returns
  */
 export const userQQPatchLogin = ({ unionId, mobile, code, account, password }) => {
-  return request(`/login/social/${unionId}/complement`, 'post', { unionId, mobile, code })
+  return request(`/login/social/${unionId}/complement`, 'post', { unionId, mobile, code, account, password })
 }

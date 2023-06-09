@@ -7,7 +7,7 @@
                     <li><a @click="logout()" href="javascript:;">退出登录</a></li>
                 </template>
                 <template v-else>
-                    <li><RouterLink to="/login">请先登录</RouterLink></li>
+                    <li><RouterLink to="/login">请先登录</RouterLink>></li>
                     <li><a href="javascript:;">免费注册</a></li>
                 </template>
                 <li><a href="javascript:;">我的订单</a></li>
@@ -30,10 +30,10 @@ export default {
     const store = useStore()
     // 使用vuex中的state需要设计计算属性
     const profile = computed(() => { return store.state.user.profile })
+
     const router = useRouter()
     const logout = () => {
       store.commit('user/setUser', {})
-      // 清空购物车
       store.commit('cart/setCart', [])
       router.push('/login')
     }

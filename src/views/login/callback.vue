@@ -17,20 +17,20 @@
             </a>
         </nav>
         <div class="tab-content" v-if="hasAccount">
-            <CallbackBind :unionId="unionId" />
+            <CallBackBind :unionId="unionId" />
         </div>
         <div class="tab-content" v-else>
-            <CallbackPatch :unionId="unionId" />
+            <CallBackPatch :unionId="unionId" />
         </div>
     </section>
     <LoginFooter />
 </template>
 <script>
+import { ref } from 'vue'
 import LoginHeader from './components/login-header.vue'
 import LoginFooter from './components/login-footer.vue'
-import CallbackBind from './components/callback-bind.vue'
-import CallbackPatch from './components/callback-patch.vue'
-import { ref } from 'vue'
+import CallBackBind from './components/callback-bind.vue'
+import CallBackPatch from './components/callback-patch.vue'
 import QC from 'qc'
 import { userQQLogin } from '@/api/user'
 import { useStore } from 'vuex'
@@ -38,36 +38,28 @@ import { useRouter } from 'vue-router'
 import Message from '@/components/library/Message'
 export default {
   name: 'LoginCallback',
-  components: { LoginHeader, LoginFooter, CallbackBind, CallbackPatch },
+  components: { LoginHeader, LoginFooter, CallBackBind, CallBackPatch },
   setup () {
     const hasAccount = ref(true)
-
-    // 默认已注册已绑定
     const isBind = ref(true)
     const store = useStore()
     const router = useRouter()
     const unionId = ref(null)
-    // 确保QQ已经登录
     if (QC.Login.check()) {
-      // 第三方唯一标识QQ唯一标识
       QC.Login.getMe((openId) => {
         unionId.value = openId
-        // 请求后台做QQ登录
         userQQLogin(openId).then(data => {
-          // 登录成功：data.result 用户信息
           const { id, account, avatar, mobile, nickname, token } = data.result
           store.commit('user/setUser', { id, account, avatar, mobile, nickname, token })
           store.dispatch('cart/mergeCart').then(() => {
             router.push(store.state.user.redirectUrl)
-            Message({ type: 'success', text: '登录成功' })
+            Message({ type: 'success', text: 'QQ登录成功' })
           })
         }).catch(e => {
-          // 登录失败：没有绑定
           isBind.value = false
         })
       })
     }
-
     return { hasAccount, isBind, unionId }
   }
 }
@@ -75,8 +67,8 @@ export default {
 <style scoped lang="less">
 .container {
   padding: 25px 0;
-  height: 730px;
   position: relative;
+  height: 730px;
   .unbind {
     position: absolute;
     left: 0;
