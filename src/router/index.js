@@ -1,5 +1,6 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, RouterView } from 'vue-router'
 import store from '@/store'
+import { h } from 'vue'
 
 const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home')
@@ -10,6 +11,12 @@ const Cart = () => import('@/views/cart/index')
 const Login = () => import('@/views/login/index')
 const LoginCallback = () => import('@/views/login/callback')
 const Checkout = () => import('@/views/member/pay/checkout')
+const Pay = () => import('@/views/member/pay/index')
+const PayResult = () => import('@/views/member/pay/result')
+const MemberLayout = () => import('@/views/member/Layout')
+const MemberHome = () => import('@/views/member/home')
+const MemberOrder = () => import('@/views/member/order')
+const MemberOrderDetail = () => import('@/views/member/order/detail')
 
 // 路由规则
 const routes = [
@@ -23,7 +30,26 @@ const routes = [
       { path: '/category/sub/:id', component: SubCategory },
       { path: '/product/:id', component: Goods },
       { path: '/cart', component: Cart },
-      { path: '/member/checkout', component: Checkout }
+      { path: '/member/checkout', component: Checkout },
+      { path: '/member/pay', component: Pay },
+      { path: '/pay/callback', component: PayResult },
+      {
+        path: '/member',
+        component: MemberLayout,
+        children: [
+          { path: '/member', component: MemberHome },
+          // { path: '/member/order', component: MemberOrder },
+          // { path: '/member/order/:id', component: MemberOrderDetail }
+          {
+            path: '/member',
+            component: { render: () => h(<RouterView />) },
+            children: [
+              { path: '', component: MemberOrder },
+              { path: ':id', component: MemberOrderDetail }
+            ]
+          }
+        ]
+      }
     ]
   },
   { path: '/login', component: Login },

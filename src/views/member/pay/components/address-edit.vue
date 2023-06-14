@@ -105,7 +105,7 @@ export default {
           Message({ type: 'success', text: '修改收货地址成功' })
           visibleDialog.value = false
           emit('on-success', formData)
-        })
+        }).catch(e => { console.log(e) })
       } else {
         // 添加请求
         addAddress(formData).then((data) => {
@@ -113,7 +113,7 @@ export default {
           Message({ type: 'success', text: '添加收货地址成功' })
           visibleDialog.value = false
           emit('on-success', formData)
-        })
+        }).catch(e => { console.log(e) })
       }
     }
 

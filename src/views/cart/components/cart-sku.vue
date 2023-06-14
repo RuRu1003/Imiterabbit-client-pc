@@ -40,7 +40,7 @@ export default {
       getGoodsSku(props.skuId).then(data => {
         goods.value = data.result
         loading.value = false
-      })
+      }).catch(e => { console.log(e) })
     }
     // 关闭
     const close = () => {

@@ -133,7 +133,7 @@ export default {
             router.push(store.state.user.redirectUrl)
             // 成功消息提示
             Message({ type: 'success', text: 'QQ完善信息成功' })
-          })
+          }).catch(e => { console.log(e) })
         }).catch(e => {
           Message({ type: 'success', text: '完善信息失败' })
         })

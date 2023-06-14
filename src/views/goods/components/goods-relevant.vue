@@ -29,7 +29,7 @@ export default {
       for (let i = 0; i < pageCount; i++) {
         sliders.value.push(data.result.slice(pageSize * i, pageSize * (i + 1)))
       }
-    })
+    }).catch(e => { console.log(e) })
     return { sliders }
   }
 }

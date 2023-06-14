@@ -62,7 +62,7 @@ export default {
       data.result.tags.unshift({ title: '全部评价', tagCount: data.result.evaluateCount, type: 'all' })
       commentInfo.value = data.result
       console.log(data.result)
-    })
+    }).catch(e => { console.log(e) })
 
     // 激活tag
     const currentTagIndex = ref(0)
@@ -107,7 +107,7 @@ export default {
       findGoodsCommentList(goods.value.id, reqParams).then(data => {
         commentList.value = data.result.items
         total.value = data.result.counts
-      })
+      }).catch(e => { console.log(e) })
     }, { immediate: true })
 
     // 定义转换数据的函数

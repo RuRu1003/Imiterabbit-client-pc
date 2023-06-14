@@ -53,7 +53,7 @@ export default {
     const sliders = ref([])
     findBanner().then(data => {
       sliders.value = data.result
-    })
+    }).catch(e => { console.log(e) })
     // 面包屑＋所有子分类
     const store = useStore()
     const route = useRoute()
@@ -72,7 +72,7 @@ export default {
     const getSubList = () => {
       findTopCategory(route.params.id).then(data => {
         subList.value = data.result.children
-      })
+      }).catch(e => { console.log(e) })
     }
     watch(() => route.params.id, (newVal) => {
       if (newVal && `/category/${newVal}` === route.path) getSubList()

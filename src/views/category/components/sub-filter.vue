@@ -50,7 +50,7 @@ export default {
           // 设置修改的数据
           filterData.value = data.result
           filterLoading.value = false
-        })
+        }).catch(e => { console.log(e) })
       }
     }, { immediate: true })
 

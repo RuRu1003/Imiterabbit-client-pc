@@ -100,7 +100,7 @@ export default {
           count: num.value
         }).then(() => {
           Message({ type: 'success', text: '加入购物车成功' })
-        })
+        }).catch(e => { console.log(e) })
       } else {
         Message({ text: '请选择完整规格' })
       }
@@ -121,7 +121,7 @@ const useGoods = () => {
         nextTick(() => {
           goods.value = data.result
         })
-      })
+      }).catch(e => { console.log(e) })
     }
   }, { immediate: true })
   return goods

@@ -141,7 +141,7 @@ export default {
       Confirm({ text: '是否确认删除商品' }).then(() => {
         store.dispatch('cart/deleteCart', skuId).then(() => {
           Message({ type: 'success', text: '删除成功' })
-        })
+        }).catch(e => { console.log(e) })
       }).catch(e => {})
     }
     // 批量删除选中商品

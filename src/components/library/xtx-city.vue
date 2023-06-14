@@ -44,7 +44,7 @@ export default {
       getCityData().then(data => {
         allCityData.value = data
         loading.value = false
-      })
+      }).catch(e => { console.log(e) })
       // 清空之前选择
       for (const key in changeResult) {
         changeResult[key] = ''
@@ -130,7 +130,7 @@ const getCityData = () => {
         // 缓存
         window.cityData = res.data
         resolve(res.data)
-      })
+      }).catch(e => { console.log(e) })
     }
   })
 }

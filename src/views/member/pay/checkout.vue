@@ -104,7 +104,7 @@ export default {
     createOrder().then(data => {
       order.value = data.result
       reqParams.goods = data.result.goods.map(({ skuId, count }) => ({ skuId, count }))
-    })
+    }).catch(e => { console.log(e) })
 
     // 接收收货地址ID
     const changeAddress = (id) => {
@@ -135,7 +135,7 @@ export default {
         Message({ type: 'success', text: '提交订单成功' })
         // 跳转支付页面
         router.push(`/member/pay?orderId=${data.result.id}`)
-      })
+      }).catch(e => { console.log(e) })
     }
 
     return { order, changeAddress, reqParams, submitOrderFn }

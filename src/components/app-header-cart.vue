@@ -42,7 +42,7 @@ export default {
     const store = useStore()
     store.dispatch('cart/findCart').then(() => {
       Message({ type: 'success', text: '更新本地购物车成功' })
-    })
+    }).catch(e => { console.log(e) })
 
     // 删除函数
     const deleteCart = (skuId) => {

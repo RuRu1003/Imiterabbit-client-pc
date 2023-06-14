@@ -11,7 +11,7 @@
                     <li><a href="javascript:;">免费注册</a></li>
                 </template>
                 <li><a href="javascript:;">我的订单</a></li>
-                <li><a href="javascript:;">会员中心</a></li>
+                <li v-if="profile.token"><RouterLink href="javascript:;" to="/member">会员中心</RouterLink>></li>
                 <li><a href="javascript:;">帮助中心</a></li>
                 <li><a href="javascript:;">关于我们</a></li>
                 <li><a href="javascript:;"><i class="iconfont icon-phone"></i>手机版</a></li>

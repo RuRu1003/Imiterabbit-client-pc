@@ -31,7 +31,7 @@ export default {
     const goodsList = ref([])
     findGoodsHot({ id: route.params.id, type: props.type }).then(data => {
       goodsList.value = data.result
-    })
+    }).catch(e => { console.log(e) })
     return { title, goodsList }
   }
 }

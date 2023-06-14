@@ -85,7 +85,7 @@ export default {
     // 获取品牌数据
     findBrand().then(data => {
       brand.brands = data.result
-    })
+    }).catch(e => { console.log(e) })
 
     return { menuList, categoryId, currCategory }
   }

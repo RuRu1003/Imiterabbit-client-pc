@@ -100,7 +100,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           const oldGoods = ctx.state.list.find(item => item.skuId === oldSkuId)
@@ -123,7 +123,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           ctx.getters[isClear ? 'invalidList' : 'selectedList'].forEach(item => {
@@ -144,7 +144,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           ctx.getters.validList.forEach(goods => {
@@ -164,7 +164,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           ctx.commit('updateCart', payload)
@@ -182,7 +182,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           ctx.commit('deleteCart', payload)
@@ -200,7 +200,7 @@ export default {
           }).then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           ctx.commit('insertCart', payload)
@@ -216,7 +216,7 @@ export default {
           findCart().then(data => {
             ctx.commit('setCart', data.result)
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         } else {
           // 未登录
           const promiseArr = ctx.state.list.map(goods => {
@@ -227,7 +227,7 @@ export default {
               ctx.commit('updateCart', { skuId: ctx.state.list[i].skuId, ...data.result })
             })
             resolve()
-          })
+          }).catch(e => { console.log(e) })
         }
       })
     }

@@ -60,7 +60,7 @@ export default {
           finished.value = true
         }
         loading.value = false
-      })
+      }).catch(e => { console.log(e) })
     }
     // 更改二级分类的时候需要重新加载数据
     watch(() => route.params.id, (newVal) => {

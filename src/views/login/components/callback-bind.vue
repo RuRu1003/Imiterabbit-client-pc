@@ -121,7 +121,7 @@ export default {
             router.push(store.state.user.redirectUrl)
             // 成功消息提示
             Message({ type: 'success', text: 'QQ绑定成功' })
-          })
+          }).catch(e => { console.log(e) })
         }).catch(e => {
           Message({ type: 'error', text: '绑定失败' })
         })

@@ -139,7 +139,7 @@ export default {
             router.push(route.query.redirectUrl || '/')
             // 成功消息提示
             Message({ type: 'success', text: '登录成功' })
-          })
+          }).catch(e => { console.log(e) })
         } catch (e) {
           // 失败提示
           if (e.response.data) {
