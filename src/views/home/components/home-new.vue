@@ -16,7 +16,7 @@
                         </RouterLink>
                     </li>
                 </ul>
-                <HomeSkeleton bg="#f0f9f4" v-else />
+                <HomeSkeleton bg="#e7f0f9" v-else />
             </Transition>
             </div>
         </HomePanel>
@@ -54,7 +54,7 @@ export default {
     li {
         width: 306px;
         height: 406px;
-        background: #f0f9f4;
+        background: #e7f0f9;
         .hoverShadow();
 
         img {

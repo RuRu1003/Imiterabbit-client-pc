@@ -2,13 +2,13 @@
     <header class='app-header'>
         <div class="container">
             <h1 class="logo">
-                <RouterLink to="/">电商平台</RouterLink>
+                <RouterLink to="/"></RouterLink>
             </h1>
             <!-- 使用头部导航组件 -->
             <AppHeaderNav />
-            <div class="search">
-                <i class="iconfont icon-search"></i>
-                <input type="text" placeholder="搜一搜">
+            <div class="right">
+                <RouterLink to="/">品牌</RouterLink>
+                <RouterLink to="/">专题</RouterLink>
             </div>
             <!-- 使用头部购物车组件 -->
             <AppHeaderCart />
@@ -35,6 +35,24 @@ export default {
     .container {
         display: flex;
         align-items: center;
+        .right {
+        width: 220px;
+        display: flex;
+        text-align: center;
+        padding-left: 40px;
+        border-left: 2px solid @xtxColor;
+
+        a {
+            width: 38px;
+            margin-right: 40px;
+            font-size: 16px;
+            line-height: 1;
+
+            &:hover {
+                color: @xtxColor;
+            }
+        }
+    }
     }
 
     .logo {
@@ -45,7 +63,7 @@ export default {
             height: 132px;
             width: 100%;
             text-indent: -9999px;
-            background: url(../assets/images/logo.png) no-repeat center 18px / contain;
+            background: url(../assets/images/logo.png) no-repeat center 40px / contain;
         }
     }
 

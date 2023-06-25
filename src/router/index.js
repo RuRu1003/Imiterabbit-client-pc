@@ -41,7 +41,7 @@ const routes = [
           // { path: '/member/order', component: MemberOrder },
           // { path: '/member/order/:id', component: MemberOrderDetail }
           {
-            path: '/member',
+            path: '/member/order/',
             component: { render: () => h(<RouterView />) },
             children: [
               { path: '', component: MemberOrder },
