@@ -1,4 +1,4 @@
-# erabbit-client-pc
+# Imiterabbit-client-pc
 
 ## Project setup
 ```
