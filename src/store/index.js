@@ -15,7 +15,7 @@ export default createStore({
   plugins: [
     createPersistedState({
       // 本地存储名字
-      key: 'erabbit-client-pc-store',
+      key: 'imiterabbit-client-pc-store',
       // 指定需要存储的模块
       paths: ['user', 'cart']
     })
