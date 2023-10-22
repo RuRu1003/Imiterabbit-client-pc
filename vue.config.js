@@ -13,6 +13,10 @@ module.exports = defineConfig({
       ]
     }
   },
+  devServer: {
+    historyApiFallback: true,
+    allowedHosts: 'all'
+  },
   configureWebpack: {
     // module: {
     //   rules: [
@@ -30,10 +34,10 @@ module.exports = defineConfig({
     //     }
     //   ]
     // }
-    devServer: {
-      historyApiFallback: true,
-      allowedHosts: 'all'
-    },
+    // devServer: {
+    //   historyApiFallback: true,
+    //   allowedHosts: 'all'
+    // },
     externals: {
       qc: 'QC'
     }

@@ -59,7 +59,7 @@
       <a @click="login()" href="javascript:;" class="btn">登录</a>
     </Form>
     <div class="action">
-      <a
+      <a id="qqLoginBtn"
         href="https://graph.qq.com/oauth2.0/authorize?client_id=100556005&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fwww.corho.com%3A8080%2F%23%2Flogin%2Fcallback">
         <img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png" alt="">
       </a>
@@ -182,8 +182,8 @@ export default {
         }
       }
     }
-
     onMounted(() => {
+      console.log('check', QC.Login.check())
       QC.Login({ btnId: 'qqLoginBtn' })
     })
 

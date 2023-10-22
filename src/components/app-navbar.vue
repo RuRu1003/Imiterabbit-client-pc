@@ -23,6 +23,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import QC from 'qc'
 export default {
   name: 'AppTopnav',
   setup () {
@@ -34,7 +35,9 @@ export default {
     const router = useRouter()
     const logout = () => {
       store.commit('user/setUser', {})
-      //   store.commit('cart/setCart', [])
+      if (QC.Login.check()) {
+        QC.Login.signOut()
+      }
       router.push('/login')
     }
     return { profile, logout }
